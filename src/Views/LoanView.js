@@ -1,7 +1,8 @@
 import React, {Component} from "react";
-import {Card, Col, InputNumber, Layout, message, Row, Slider} from 'antd';
-import {MenuFoldOutlined, MenuUnfoldOutlined,} from '@ant-design/icons';
+import {Card, Col, Descriptions, InputNumber, Layout, message, Row, Slider} from 'antd';
+import {LoadingOutlined, MenuFoldOutlined, MenuUnfoldOutlined} from '@ant-design/icons';
 import axios from 'axios';
+
 
 const {Sider, Content, Header} = Layout;
 
@@ -14,11 +15,16 @@ export default class LoanView extends Component {
             collapsed: false,
             principal: 500,
             duration: 6,
-            interest:null,
-            emi:null
+            interest: null,
+            emi: null,
+            loading: true
         }
         this.checkKeyPress = this.checkKeyPress.bind(this);
         this.apiCall = this.apiCall.bind(this);
+    }
+
+    componentDidMount() {
+        this.apiCall();
     }
 
     toggle = () => {
@@ -27,18 +33,17 @@ export default class LoanView extends Component {
         });
     };
     onChange = value => {
-        this.setState({principal: value}, () => this.apiCall())
+        this.setState({loading: true, principal: value}, () => this.apiCall())
 
     };
     onMonthChange = value => {
-        this.setState({duration: value}, () => this.apiCall())
+        this.setState({loading: true, duration: value}, () => this.apiCall())
     };
 
     apiCall() {
         let url = 'https://ftl-frontend-test.herokuapp.com/interest?amount=' + this.state.principal + '&numMonths=' + this.state.duration;
         axios.get(url).then(res => {
-            console.log(res.data);
-            this.setState({interest:res.data.interestRate,emi:res.data.monthlyPayment.amount})
+            this.setState({interest: res.data.interestRate, emi: res.data.monthlyPayment.amount, loading: false})
 
         }).catch(err => {
             message.error("Something went wrong");
@@ -53,7 +58,7 @@ export default class LoanView extends Component {
     }
 
     render() {
-        let {principal, duration,emi,interest} = this.state;
+        let {principal, duration, emi, interest, loading,} = this.state;
 
         return <div><Layout>
             <Sider width={300} style={{height: '100vh'}} trigger={null} collapsible collapsed={this.state.collapsed}
@@ -145,31 +150,48 @@ export default class LoanView extends Component {
                                   title={<div style={{color: 'white', textAlign: 'center'}}><span
                                       style={{fontSize: '20px'}}>Interest detail</span></div>} className={'innerCard'}
                                   headStyle={{borderBottom: '1px solid #33333d'}}>
-                                <br/>
-
-                                <Row>
-                                    <Col xl={14} lg={14} md={24} sm={24} xs={24}>
+                                <Card style={{backgroundColor: '#33333d', boxShadow: '0 15px 15px 0'}}>
+                                    <Row>
+                                        <Col xl={14} lg={14} md={24} sm={24} xs={24}>
                                         <span style={{
                                             color: 'white',
-                                            fontSize: '30px',
+                                            fontSize: '20px',
                                             fontStyle: 'italic'
-                                        }}>Interest: {interest}</span>
-                                    </Col>
-                                    <Col xl={10} lg={10} md={24} sm={24} xs={24}>
-                                    </Col>
-                                </Row>
+                                        }}>Interest rate:</span><span style={{
+                                            color: 'white',
+                                            fontSize: '20px',
+                                            fontStyle: 'italic',float:'right'
+                                        }}>{!loading ? interest :
+                                            <LoadingOutlined style={{color: '#dd3f77'}}/>}</span>
+
+                                        </Col>
+                                        <Col xl={10} lg={10} md={24} sm={24} xs={24}>
+                                        </Col>
+                                    </Row>
 
 
-                                <Row>
-                                    <Col xl={14} lg={14} md={24} sm={24} xs={24}>
+                                    <Row>
+                                        <Col xl={14} lg={14} md={24} sm={24} xs={24}>
                                         <span
-                                            style={{color: 'white', fontSize: '30px', fontStyle: 'italic'}}>EMI:{emi}</span>
+                                            style={{
+                                                color: 'white',
+                                                fontSize: '20px',
+                                                fontStyle: 'italic'
+                                            }}>Monthly EMI:</span> <span
+                                            style={{
+                                                color: 'white',
+                                                fontSize: '20px',
+                                                fontStyle: 'italic',
+                                                float:'right',
+                                            }}>{!loading ? emi :
+                                            <LoadingOutlined style={{color: '#dd3f77'}}/>}</span>
 
-                                    </Col>
-                                    <Col xl={10} lg={10} md={24} sm={24} xs={24}>
+                                        </Col>
+                                        <Col xl={10} lg={10} md={24} sm={24} xs={24}>
 
-                                    </Col>
-                                </Row>
+                                        </Col>
+                                    </Row>
+                                </Card>
                             </Card>
                         </Col>
                         <Col xl={3} lg={3} md={24} sm={24} xs={24}>
