@@ -85,7 +85,7 @@ export default class LoanView extends Component {
                         <Col xl={3} lg={3} md={24} sm={24} xs={24}>
                         </Col>
                         <Col xl={9} lg={9} md={24} sm={24} xs={24}>
-                            <Card bodyStyle={{height: '200px'}}
+                            <Card bodyStyle={{minHeight: '200px'}}
                                   title={<div style={{color: 'white', textAlign: 'center'}}><span
                                       style={{fontSize: '20px'}}>Loan detail</span></div>} className={'innerCard'}
                                   headStyle={{borderBottom: '1px solid #33333d'}}>
@@ -141,7 +141,7 @@ export default class LoanView extends Component {
                             </Card>
                         </Col>
                         <Col xl={9} lg={9} md={24} sm={24} xs={24}>
-                            <Card bodyStyle={{height: '200px'}}
+                            <Card bodyStyle={{minHeight: '200px'}}
                                   title={<div style={{color: 'white', textAlign: 'center'}}><span
                                       style={{fontSize: '20px'}}>Interest detail</span></div>} className={'innerCard'}
                                   headStyle={{borderBottom: '1px solid #33333d'}}>
