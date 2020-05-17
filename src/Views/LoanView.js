@@ -38,6 +38,9 @@ export default class LoanView extends Component {
 
     };
     onAfterChange = value => {
+        if(value<500||value>5000)
+            message.error('Amount should be between 500 and 5000');
+        else
         this.setState({loading: true, principal: value}, () => this.apiCall())
 
     };
@@ -45,6 +48,9 @@ export default class LoanView extends Component {
         this.setState({duration: value})
     };
     onMonthAfterChange= value => {
+        if(value<6||value>24)
+            message.error('Month should be between 6 and 24');
+        else
         this.setState({loading: true, duration: value}, () => this.apiCall())
     };
 
