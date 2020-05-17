@@ -58,8 +58,9 @@
 .heading1{
   width: 100%;
   height: 70px;
-  background-color: #33333d;
-  //border: 1px solid #dd3f77;
+  background-color: #dd3f77;
+  padding-top: 8px;
+  border: 1px solid white;
   color: white;
   text-align: center;
 }

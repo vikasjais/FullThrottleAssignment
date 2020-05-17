@@ -61,6 +61,7 @@ export default class LoanView extends Component {
     addCacheObject(){
         let {cache}=this.state;
         cache.push(this.cacheObject(this.state.principal,this.state.duration,this.state.interest,this.state.emi));
+        this.setState({cache:cache})
 
     }
     cacheObject(principal,duration,interest,emi){
@@ -83,9 +84,10 @@ export default class LoanView extends Component {
         return <div><Layout>
             <Sider width={300} style={{height: '100vh'}} trigger={null} collapsible collapsed={this.state.collapsed}
                    collapsedWidth={0}>
-                <div style={{height: '100vh',overflow:'auto'}}>
+                <div style={{height: '100vh',overflow:'auto',textAlign:'center'}}>
+                    <h2 style={{color:'white',fontStyle:'italic'}}><u>Cache data</u></h2>
                 {
-                    cache.map((object,index)=>
+                    cache.slice(0).reverse().map((object,index)=>
                         <a onClick={()=>this.setParams(object)}>
                         <div className={'cache'} >
                         <Descriptions bordered column={1} size={'small'} style={{backgroundColor:'#33333d'}}>
@@ -157,7 +159,7 @@ export default class LoanView extends Component {
                                     </Col>
                                 </Row>
 
-                                <span style={{color: 'white', fontSize: '20px'}}>Duration:</span>
+                                <span style={{color: 'white', fontSize: '20px'}}>Duration (Months):</span>
                                 <Row>
                                     <Col xl={14} lg={14} md={24} sm={24} xs={24}>
 
@@ -227,7 +229,7 @@ export default class LoanView extends Component {
                                                     color: 'white',
                                                     fontSize: '20px',
                                                     fontStyle: 'italic',
-                                                }}>{!loading ? emi :
+                                                }}>{!loading ? emi+' $' :
                                                 <LoadingOutlined style={{color: '#dd3f77'}}/>}</span>
                                             </h1>
                                         </Col>
