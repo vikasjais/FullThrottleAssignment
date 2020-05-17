@@ -64,8 +64,8 @@
   text-align: center;
 }
 .ant-layout-sider-children{
-  background-color: #424250;
-  border: 1px solid powderblue;
+  background-color: #33333d;
+  border: 1px solid #dd3f77;
 }
 .innerCard{
   margin: 15px 5px 5px 15px;
@@ -76,4 +76,14 @@
 }
 .Input{
   display: flex;
+}
+
+.cache{
+  background-color: #33333d;
+  margin:10px 10px 10px 10px;
+
+
+}
+.cache:hover{
+  box-shadow: 0 15px 15px 0 #0fba95;
 }
