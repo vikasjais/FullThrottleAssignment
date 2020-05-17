@@ -10,8 +10,6 @@ export default class LoanView extends Component {
     constructor(props) {
         super(props);
         this.state = {
-            principalAmount: null,
-            interestAmount: null,
             collapsed: false,
             principal: 500,
             duration: 6,
@@ -20,10 +18,10 @@ export default class LoanView extends Component {
             loading: true,
             cache:[],
         }
-        this.checkKeyPress = this.checkKeyPress.bind(this);
         this.apiCall = this.apiCall.bind(this);
         this.cacheObject = this.cacheObject.bind(this);
         this.addCacheObject = this.addCacheObject.bind(this);
+        this.setParams = this.setParams.bind(this);
     }
 
     componentDidMount() {
@@ -74,12 +72,9 @@ export default class LoanView extends Component {
         }
     }
 
-    checkKeyPress(e) {
-        if ((e.keyCode >= 48 && e.keyCode <= 57) || (e.keyCode >= 96 && e.keyCode <= 105)) {
-            console.log('number');
-        }
-
-    }
+   setParams(object){
+        this.setState({principal:object.principal,duration:object.duration,interest:object.interest,emi:object.emi})
+   }
 
     render() {
         let {principal, duration, emi, interest, loading,cache} = this.state;
@@ -88,10 +83,11 @@ export default class LoanView extends Component {
         return <div><Layout>
             <Sider width={300} style={{height: '100vh'}} trigger={null} collapsible collapsed={this.state.collapsed}
                    collapsedWidth={0}>
+                <div style={{height: '100vh',overflow:'auto'}}>
                 {
                     cache.map((object,index)=>
-                        <a>
-                        <div className={'cache'} onClick={console.log('hello')}>
+                        <a onClick={()=>this.setParams(object)}>
+                        <div className={'cache'} >
                         <Descriptions bordered column={1} size={'small'} style={{backgroundColor:'#33333d'}}>
                   <Descriptions.Item label={'Amount'} style={{color: 'white',backgroundColor:'#33333d'}} >{object.principal}</Descriptions.Item>
                   <Descriptions.Item label={'Duration'} style={{color: 'white',backgroundColor:'#33333d'}} >{object.duration}</Descriptions.Item>
@@ -102,8 +98,9 @@ export default class LoanView extends Component {
                         </a>
                     )
 
-                }
 
+                }
+                </div>
 
             </Sider>
             <Layout className="site-layout">

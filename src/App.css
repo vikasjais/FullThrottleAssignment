@@ -80,10 +80,10 @@
 
 .cache{
   background-color: #33333d;
-  margin:10px 10px 10px 10px;
+  margin:20px 20px 20px 20px;
 
 
 }
 .cache:hover{
-  box-shadow: 0 15px 15px 0 #0fba95;
+  box-shadow: 0 15px 15px 0 rgba(211, 211, 211, 0.55);
 }
