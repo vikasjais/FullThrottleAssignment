@@ -97,10 +97,10 @@ export default class LoanView extends Component {
                         <a onClick={()=>this.setParams(object)}>
                         <div className={'cache'} >
                         <Descriptions bordered column={1} size={'small'} style={{backgroundColor:'#33333d'}}>
-                  <Descriptions.Item label={'Amount'} style={{color: 'white',backgroundColor:'#33333d'}} >{object.principal}</Descriptions.Item>
-                  <Descriptions.Item label={'Duration'} style={{color: 'white',backgroundColor:'#33333d'}} >{object.duration}</Descriptions.Item>
-                  <Descriptions.Item label={'Interest'} style={{color: 'white',backgroundColor:'#33333d'}} >{object.interest}</Descriptions.Item>
-                  <Descriptions.Item label={'EMI'} style={{color: 'white',backgroundColor:'#33333d'}} >{object.emi}</Descriptions.Item>
+                  <Descriptions.Item label={'Amount'} style={{color: 'white',backgroundColor:'#33333d'}} >$ {object.principal}</Descriptions.Item>
+                  <Descriptions.Item label={'Duration'} style={{color: 'white',backgroundColor:'#33333d'}} >{object.duration} Months</Descriptions.Item>
+                  <Descriptions.Item label={'Interest'} style={{color: 'white',backgroundColor:'#33333d'}} >{object.interest} %</Descriptions.Item>
+                  <Descriptions.Item label={'EMI'} style={{color: 'white',backgroundColor:'#33333d'}} >${object.emi}/month</Descriptions.Item>
                         </Descriptions>
                         </div>
                         </a>
@@ -212,7 +212,7 @@ export default class LoanView extends Component {
                                                 color: 'white',
                                                 fontSize: '20px',
                                                 fontStyle: 'italic',
-                                            }}>{!loading ? interest :
+                                            }}>{!loading ? interest+' %' :
                                                 <LoadingOutlined style={{color: '#dd3f77'}}/>}</span>
                                             </h1>
                                         </Col>
@@ -235,7 +235,7 @@ export default class LoanView extends Component {
                                                     color: 'white',
                                                     fontSize: '20px',
                                                     fontStyle: 'italic',
-                                                }}>{!loading ? emi+' $' :
+                                                }}>{!loading ? '$'+emi:
                                                 <LoadingOutlined style={{color: '#dd3f77'}}/>}</span>
                                             </h1>
                                         </Col>
